@@ -1,14 +1,12 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useNews } from './NewsContext';
 import { Card, Button, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-function NewsDetail() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const news = useNews()[id];
-
-  if (!news) return <p>Noticia no encontrada</p>;
+function NewsDetail(props) {
+  const newsData = useNews();
+  const id = props.id;
+  const news = newsData[id];
 
   return (
     <Container className="my-4">
@@ -19,7 +17,7 @@ function NewsDetail() {
           <Card.Text><strong>Categoría:</strong> {news.categoria}</Card.Text>
           <Card.Text><strong>Autor:</strong> {news.autor}</Card.Text>
           <Card.Text><strong>Fecha:</strong> {news.fecha}</Card.Text>
-          <Button variant="primary" onClick={() => navigate('/')}>Volver</Button>
+          <Button variant="primary" as={Link} to="/">Volver</Button>
         </Card.Body>
       </Card>
     </Container>
